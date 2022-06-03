@@ -1,8 +1,15 @@
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import ShowProducts from "../components/ShowProducts";
 import { Text, View } from "../components/Themed";
 import tw from "../lib/tailwind";
+import * as WebBrowser from "expo-web-browser";
+
+const _handlePressButtonAsync = async () => {
+  let result = await WebBrowser.openBrowserAsync(
+    "https://github.com/ceafive/mPharma"
+  );
+};
 
 export default function AboutScreen() {
   return (
@@ -15,9 +22,17 @@ export default function AboutScreen() {
       />
 
       <View style={[tw`items-center`]}>
-        <Text style={[tw`text-lg font-semibold`]}>Designed and Built by</Text>
-        <Text style={[tw`text-2xl font-bold`]}>Castro Agbo</Text>
-        <Text style={[tw`text-2xl font-bold`]}>Github: </Text>
+        <Text style={[tw`font-semibold`]}>Designed and Built by</Text>
+        <Text style={[tw`text-lg font-bold`]}>Castro Agbo</Text>
+        <Pressable onPress={_handlePressButtonAsync}>
+          <View style={[tw`flex flex-row`]}>
+            <Text style={[tw``]}>Github: </Text>
+            <Text style={[tw`text-blue-500`]}>
+              https://github.com/ceafive/mPharma
+            </Text>
+          </View>
+        </Pressable>
+        <Text style={[tw`font-bold mt-10`]}>{new Date().getFullYear()}</Text>
       </View>
     </View>
   );

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import ShowProducts from "../components/ShowProducts";
 import { Text, View } from "../components/Themed";
@@ -28,6 +28,11 @@ export default function ProductsScreen({
         >
           We will deliver your medicine
         </Text>
+        <Pressable style={[tw`w-1/3 mt-3`]}>
+          <View style={[tw`py-3 px-4 rounded bg-green-500 text-white`]}>
+            <Text style={[tw`text-white font-semibold`]}>Order Now</Text>
+          </View>
+        </Pressable>
       </View>
 
       <ShowProducts />

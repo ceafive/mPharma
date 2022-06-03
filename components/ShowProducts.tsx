@@ -61,7 +61,7 @@ export default function ShowProducts() {
         <View
           style={[tw`flex flex-row justify-between items-center bg-gray-50`]}
         >
-          <Text style={[styles.getStartedText, tw`font-black`]}>Products</Text>
+          <Text style={[styles.getStartedText, tw`font-bold`]}>Products</Text>
           <TouchableOpacity
             style={[tw`py-2`]}
             hitSlop={{ left: 5, right: 5 }}

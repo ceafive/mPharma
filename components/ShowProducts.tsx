@@ -15,7 +15,7 @@ import { Text, View } from "./Themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { orderBy } from "lodash";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { getData, storeData } from "../lib";
+import { clearData, getData, storeData } from "../lib";
 import { FontAwesome } from "@expo/vector-icons";
 import { Alert } from "react-native";
 
@@ -35,24 +35,40 @@ export default function ShowProducts() {
           .then((data) => {
             // console.log(data);
             if (data.products) {
-              setProducts(data.products);
-              storeData("@mpharma/products", data.products);
+              const modified = data.products?.map((p) => ({
+                ...p,
+                deleted: 0,
+              }));
+              setProducts(modified);
+              storeData("@mpharma/products", modified);
             }
           });
       } else {
-        setProducts(storageProducts);
+        setProducts(storageProducts?.filter((p) => p?.deleted === 0));
+        // setProducts(storageProducts?.filter((p) => p?.deleted === 0));
       }
+
+      // await clearData("@mpharma/products");
     })();
   }, [isFocused]);
 
   const onDelete = async (id: number) => {
     const storageProducts = await getData("@mpharma/products");
-    const filtered = storageProducts?.filter((p) => p?.id !== id);
+    const mapped = storageProducts?.map((p) => {
+      if (p?.id === id) {
+        return {
+          ...p,
+          deleted: 1,
+        };
+      } else {
+        return p;
+      }
+    });
 
-    storeData("@mpharma/products", filtered);
+    storeData("@mpharma/products", mapped);
 
     const newProducts = await getData("@mpharma/products");
-    setProducts(newProducts);
+    setProducts(newProducts?.filter((p) => p?.deleted === 0));
   };
 
   return (
@@ -69,7 +85,7 @@ export default function ShowProducts() {
               navigation.navigate("Add", { title: "Add New Product" })
             }
           >
-            <Text style={[tw`text-gray-600`]}>+ Add New Product</Text>
+            <Text style={[tw`text-blue-600`]}>+ Add New Product</Text>
           </TouchableOpacity>
         </View>
       </View>

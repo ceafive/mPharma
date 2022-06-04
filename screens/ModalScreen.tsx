@@ -67,6 +67,7 @@ export default function ModalScreen({
                 date: new Date(),
               },
             ],
+            deleted: 0,
           },
           ...storageProducts,
         ];
@@ -83,6 +84,7 @@ export default function ModalScreen({
               date: new Date(),
             },
           ],
+          deleted: 0,
         },
       ];
     }

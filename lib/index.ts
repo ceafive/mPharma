@@ -17,3 +17,11 @@ export const getData = async (key: string) => {
     // error reading value
   }
 };
+
+export const clearData = async (key: string) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (e) {
+    // error reading value
+  }
+};

@@ -13,6 +13,7 @@ export default function ProductsScreen({
 }: RootTabScreenProps<"Products">) {
   return (
     <View style={[styles.container, tw`bg-gray-50`]}>
+      {/* <View style={[tw`px-10 items-center flex-1`]}> */}
       <View
         style={[tw`flex flex-row justify-between items-center py-4 w-full`]}
       >
@@ -36,6 +37,7 @@ export default function ProductsScreen({
       </View>
 
       <ShowProducts />
+      {/* </View> */}
     </View>
   );
 }
